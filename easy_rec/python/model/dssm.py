@@ -38,6 +38,11 @@ class DSSM(MatchModel):
     self._user_tower_emb = None
     self._item_tower_emb = None
 
+    if self._model_config.HasField('item_id'):
+      self.item_id = self._model_config.item_id
+    else:
+      self.item_id = None
+
   def build_predict_graph(self):
     num_user_dnn_layer = len(self.user_tower.dnn.hidden_units)
     last_user_hidden = self.user_tower.dnn.hidden_units.pop()
@@ -101,6 +106,9 @@ class DSSM(MatchModel):
         tf.as_string(user_tower_emb), axis=-1, separator=',')
     self._prediction_dict['item_emb'] = tf.reduce_join(
         tf.as_string(item_tower_emb), axis=-1, separator=',')
+    if self.item_id is not None and self.item_id in self._feature_dict:
+      self._prediction_dict['item_id'] = tf.identity(
+          self._feature_dict[self.item_id])
     return self._prediction_dict
 
   def get_outputs(self):
