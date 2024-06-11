@@ -161,7 +161,8 @@ def main(argv):
       logging.info('will save predict result to %s' % FLAGS.output_path)
       with tf.gfile.GFile(FLAGS.output_path, 'wb') as fout:
         for k in pred_result:
-          fout.write(json.dumps(k, cls=numpy_utils.NumpyEncoder) + '\n')
+          # fout.write(json.dumps(k, cls=numpy_utils.NumpyEncoder) + '\n')
+          fout.write(str(k) + '\n')
 
 
 if __name__ == '__main__':
