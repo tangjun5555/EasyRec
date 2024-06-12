@@ -115,7 +115,8 @@ class DSSM(MatchModel):
     if self._loss_type == LossType.CLASSIFICATION:
       if self.item_id is not None:
         return [
-              'logits', 'probs', 'user_emb', 'item_emb', 'item_id'
+          'logits', 'probs', 'user_emb', 'item_emb', 'user_tower_emb',
+          'item_tower_emb', "item_id"
         ]
       else:
         return [

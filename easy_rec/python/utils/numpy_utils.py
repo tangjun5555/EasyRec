@@ -15,4 +15,4 @@ class NumpyEncoder(json.JSONEncoder):
       return float(obj)
     elif isinstance(obj, np.ndarray):
       return obj.tolist()
-    return json.JSONEncoder.default(self, obj)
+    return str(obj)
